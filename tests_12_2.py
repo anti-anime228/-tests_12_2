@@ -1,5 +1,5 @@
-# ДОРАБОТАТЬ
 import unittest
+
 class Runner:
     def __init__(self, name, speed=5):
         self.name = name
@@ -42,40 +42,45 @@ class Tournament:
 
 
 
+
 class TournamentTest(unittest.TestCase):
-
     @classmethod
-
     def setUpClass(cls):
         cls.all_results = {}
 
     def setUp(self):
-        runner1 = Runner('Усэйн', 10)
-        runner2 = Runner('Андрей', 9)
-        runner3 = Runner('Ник', 3)
+        self.usain = Runner('Усэйн', 10)
+        self.andrew = Runner('Андрей', 9)
+        self.nick = Runner('Ник', 3)
 
     @classmethod
     def tearDownClass(cls):
-        print(cls.all_results)
+        for key1, value1 in cls.all_results.items():
+            print(f'Тест: {key1}')
+            for key2, valu2 in value1.items():
+                print(f'{key2}: {valu2.name}')
 
+    def test_tournament_usain_vs_nick(self):
+        tournament_usain_vs_nick = Tournament(90, self.usain, self.nick)
+        start_test = tournament_usain_vs_nick.start()
+        self.all_results['tournament_usain_vs_nick'] = start_test
 
+    def test_tournament_andrew_vs_nick(self):
+        tournament_andrew_vs_nick = Tournament(90, self.andrew, self.nick)
+        start_test = tournament_andrew_vs_nick.start()
+        self.all_results['tournament_andrew_vs_nick'] = start_test
 
+    def test_tournament_all(self):
+        tournament_all = Tournament(90, self.usain, self.andrew, self.nick)
+        start_test = tournament_all.start()
+        self.all_results['tournament_all'] = start_test
 
+    def test_short(self):
+        short = Tournament(6, self.usain, self.andrew, self.nick)
+        start_short = short.start()
+        self.all_results['test_short'] = start_short
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+if __name__ == '__main__':
+    unittest.main()
 
 
